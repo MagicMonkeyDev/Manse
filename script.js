@@ -1,8 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize terminal after intro sequence
     setTimeout(() => {
+        const introSequence = document.querySelector('.intro-sequence');
+        const cyberContainer = document.querySelector('.cyber-container');
+        
+        // Hide intro sequence
+        introSequence.classList.add('hide-intro');
+        
+        // Show main container
+        cyberContainer.classList.add('show-container');
+        
+        // Initialize terminal
         initializeTerminal();
-        document.querySelector('.cyber-container').style.display = 'flex';
     }, 6000);
 
     // Boot sequence texts

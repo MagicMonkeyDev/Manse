@@ -35,6 +35,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    transition: opacity 0.5s ease-out;
 }
 
 .ascii-art {
@@ -96,10 +97,12 @@ body {
 
 /* Main Terminal Styles */
 .cyber-container {
-    display: none;
+    opacity: 0;
     min-height: 100vh;
     padding: 2rem;
-    animation: fadeIn 0.5s ease-out 6s forwards;
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
 }
 
 .terminal-section {
@@ -304,4 +307,16 @@ body {
     .key.delete, .key.tab, .key.caps, .key.shift, .key.enter {
         min-width: 60px;
     }
+}
+
+/* Update these styles */
+.hide-intro {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.show-container {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease-out;
 }
