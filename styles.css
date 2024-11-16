@@ -117,11 +117,11 @@ body {
     max-width: 800px;
     position: relative;
     z-index: 2;
-    background: #000;
-    border: 1px solid var(--primary-color);
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #ff69b4;
     border-radius: 8px;
-    box-shadow: 0 0 20px var(--shadow-color),
-                inset 0 0 20px rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.3),
+                inset 0 0 15px rgba(0, 255, 255, 0.2);
     overflow: hidden;
     margin-bottom: 2rem;
 }
@@ -184,12 +184,12 @@ body {
     max-width: 900px;
     position: relative;
     z-index: 2;
-    background: #001414;
-    border: 1px solid var(--primary-color);
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ffff;
     border-radius: 8px;
     padding: 1.5rem;
-    box-shadow: 0 0 20px var(--shadow-color),
-                inset 0 0 20px rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3),
+                inset 0 0 15px rgba(255, 105, 180, 0.2);
 }
 
 .keyboard {
@@ -205,9 +205,9 @@ body {
 }
 
 .key {
-    background: #000;
-    border: 1px solid var(--primary-color);
-    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid #ff69b4;
+    border-radius: 8px;
     padding: 0.5rem;
     min-width: 40px;
     height: 40px;
@@ -218,13 +218,14 @@ body {
     cursor: pointer;
     font-size: 0.8rem;
     text-align: center;
-    transition: all 0.2s ease;
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
 }
 
 .key:hover {
-    background: #001414;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+    background: rgba(255, 105, 180, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
 }
 
 .key:active, .key.active {
@@ -442,7 +443,7 @@ canvas {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #000;
+    background: linear-gradient(45deg, #000000, #1a0033);
     overflow: hidden;
     z-index: 0;
 }
@@ -573,4 +574,99 @@ canvas {
     background: rgba(255, 105, 180, 0.2);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+}
+
+.waves-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: translateZ(0);
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background: transparent;
+    opacity: 0.4;
+    transform-origin: 50% 50%;
+}
+
+.wave1 {
+    background: linear-gradient(45deg, rgba(255, 105, 180, 0.3), rgba(0, 255, 255, 0.3));
+    animation: drift 15s infinite linear, wave1 8s infinite ease-in-out;
+}
+
+.wave2 {
+    background: linear-gradient(-45deg, rgba(147, 51, 234, 0.3), rgba(0, 255, 255, 0.3));
+    animation: drift 17s infinite linear, wave2 10s infinite ease-in-out;
+}
+
+.wave3 {
+    background: linear-gradient(45deg, rgba(255, 0, 255, 0.3), rgba(0, 255, 255, 0.3));
+    animation: drift 20s infinite linear, wave3 12s infinite ease-in-out;
+}
+
+.cyber-sparkles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at center, #fff 0%, transparent 0.1%),
+        radial-gradient(circle at center, #fff 0%, transparent 0.1%);
+    background-size: 12px 12px;
+    background-position: 0 0, 6px 6px;
+    animation: sparkle 4s infinite linear;
+}
+
+@keyframes drift {
+    from {
+        transform: translateX(-50%);
+    }
+    to {
+        transform: translateX(0%);
+    }
+}
+
+@keyframes wave1 {
+    0%, 100% {
+        transform: translateY(-2%) scaleY(1);
+    }
+    50% {
+        transform: translateY(-5%) scaleY(1.1);
+    }
+}
+
+@keyframes wave2 {
+    0%, 100% {
+        transform: translateY(-3%) scaleY(1);
+    }
+    50% {
+        transform: translateY(-6%) scaleY(1.05);
+    }
+}
+
+@keyframes wave3 {
+    0%, 100% {
+        transform: translateY(-4%) scaleY(1);
+    }
+    50% {
+        transform: translateY(-7%) scaleY(1.15);
+    }
+}
+
+@keyframes sparkle {
+    0% {
+        opacity: 0.3;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 0.6;
+    }
+    100% {
+        opacity: 0.3;
+        transform: translateY(-10px);
+    }
 }
