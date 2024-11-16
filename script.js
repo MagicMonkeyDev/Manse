@@ -7,12 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Hide intro sequence
         introSequence.classList.add('hide-intro');
         
-        // Show main container
+        // Show main container and initialize vortex
         cyberContainer.classList.add('show-container');
-        
-        // Initialize terminal and vortex
-        initializeTerminal();
         initVortex();
+        initializeTerminal();
     }, 6000);
 
     // Boot sequence texts
