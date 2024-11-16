@@ -2,91 +2,143 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cyber Hub</title>
+    <title>CyberHub Command Center</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="cyber-container">
-        <!-- Navigation -->
-        <nav class="cyber-nav">
-            <div class="logo">CYBER_HUB</div>
+        <!-- Side Navigation -->
+        <nav class="side-nav">
+            <div class="logo">
+                <img src="https://api.iconify.design/simple-icons:hackaday.svg?color=%230ff" alt="Logo">
+                <span>CYBER_HUB</span>
+            </div>
             <div class="nav-links">
-                <a href="#" class="cyber-button">HOME</a>
-                <a href="#" class="cyber-button">PROJECTS</a>
-                <a href="#" class="cyber-button">CONTACT</a>
+                <a href="#" class="active"><i class="icon">⌘</i>Dashboard</a>
+                <a href="#"><i class="icon">⚡</i>Systems</a>
+                <a href="#"><i class="icon">◈</i>Network</a>
+                <a href="#"><i class="icon">⚔</i>Security</a>
+            </div>
+            <div class="user-profile">
+                <div class="avatar"></div>
+                <div class="user-info">
+                    <span class="username">ADMIN_USER</span>
+                    <span class="status">CONNECTED</span>
+                </div>
             </div>
         </nav>
 
         <!-- Main Content -->
         <main class="main-content">
-            <div class="left-panel">
-                <div class="status-box">
-                    <h2>SYSTEM STATUS</h2>
+            <header class="top-bar">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search systems...">
+                </div>
+                <div class="system-status">
                     <div class="status-item">
-                        <span class="label">CPU LOAD</span>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 75%"></div>
-                        </div>
-                    </div>
-                    <div class="status-item">
-                        <span class="label">MEMORY</span>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 60%"></div>
-                        </div>
+                        <span class="label">SYSTEM LOAD</span>
+                        <div class="status-indicator green"></div>
                     </div>
                     <div class="status-item">
                         <span class="label">NETWORK</span>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 90%"></div>
-                        </div>
+                        <div class="status-indicator green"></div>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">SECURITY</span>
+                        <div class="status-indicator yellow"></div>
                     </div>
                 </div>
-            </div>
+            </header>
 
-            <div class="terminal-container">
-                <div class="terminal">
-                    <div class="terminal-header">
+            <div class="dashboard-grid">
+                <!-- Terminal Section -->
+                <section class="terminal-section">
+                    <div class="section-header">
+                        <h2>COMMAND CENTER</h2>
                         <div class="controls">
-                            <span class="control close"></span>
-                            <span class="control minimize"></span>
-                            <span class="control maximize"></span>
+                            <button class="minimize">_</button>
+                            <button class="maximize">□</button>
                         </div>
-                        <div class="title">TERMINAL_ACCESS_v2.0</div>
                     </div>
-                    <div class="terminal-content">
-                        <div class="scan-line"></div>
+                    <div class="terminal">
                         <div id="output"></div>
                         <div class="input-line">
-                            <span class="prompt">></span>
+                            <span class="prompt">root@cyber:~$</span>
                             <input type="text" id="terminal-input" autofocus>
                         </div>
                     </div>
-                </div>
-            </div>
+                </section>
 
-            <div class="right-panel">
-                <div class="info-box">
-                    <h2>NETWORK INFO</h2>
-                    <div class="network-stats">
-                        <div class="stat">
-                            <span class="stat-label">PING</span>
-                            <span class="stat-value">23ms</span>
+                <!-- System Metrics -->
+                <section class="metrics-section">
+                    <div class="section-header">
+                        <h2>SYSTEM METRICS</h2>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <h3>CPU LOAD</h3>
+                            <div class="circular-progress">
+                                <svg>
+                                    <circle class="bg" cx="60" cy="60" r="54"></circle>
+                                    <circle class="progress" cx="60" cy="60" r="54"></circle>
+                                </svg>
+                                <span class="percentage">75%</span>
+                            </div>
                         </div>
-                        <div class="stat">
-                            <span class="stat-label">UPTIME</span>
-                            <span class="stat-value">24:00:00</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-label">CONNECTIONS</span>
-                            <span class="stat-value">42</span>
+                        <div class="metric-card">
+                            <h3>MEMORY</h3>
+                            <div class="circular-progress">
+                                <svg>
+                                    <circle class="bg" cx="60" cy="60" r="54"></circle>
+                                    <circle class="progress" cx="60" cy="60" r="54"></circle>
+                                </svg>
+                                <span class="percentage">62%</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </section>
+
+                <!-- Network Activity -->
+                <section class="network-section">
+                    <div class="section-header">
+                        <h2>NETWORK ACTIVITY</h2>
+                    </div>
+                    <div class="network-grid">
+                        <div class="activity-card">
+                            <span class="activity-label">INCOMING</span>
+                            <div class="activity-graph"></div>
+                            <span class="activity-value">1.2 GB/s</span>
+                        </div>
+                        <div class="activity-card">
+                            <span class="activity-label">OUTGOING</span>
+                            <div class="activity-graph"></div>
+                            <span class="activity-value">824 MB/s</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Security Alerts -->
+                <section class="alerts-section">
+                    <div class="section-header">
+                        <h2>SECURITY ALERTS</h2>
+                    </div>
+                    <div class="alerts-list">
+                        <div class="alert-item">
+                            <span class="alert-time">13:42</span>
+                            <span class="alert-message">Unauthorized access attempt detected</span>
+                            <span class="alert-severity high">HIGH</span>
+                        </div>
+                        <div class="alert-item">
+                            <span class="alert-time">13:37</span>
+                            <span class="alert-message">System update available</span>
+                            <span class="alert-severity low">LOW</span>
+                        </div>
+                    </div>
+                </section>
             </div>
         </main>
     </div>
-    <div class="matrix-bg"></div>
     <script src="script.js"></script>
 </body>
 </html> 

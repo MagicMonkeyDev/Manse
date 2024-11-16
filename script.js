@@ -84,3 +84,33 @@ function updateNetworkStats() {
 // Run updates
 setInterval(updateSystemStats, 2000);
 setInterval(updateNetworkStats, 1000);
+
+// Update circular progress bars
+function updateCircularProgress() {
+    const circles = document.querySelectorAll('.circular-progress .progress');
+    circles.forEach(circle => {
+        const percent = Math.random() * 100;
+        circle.style.setProperty('--percent', percent / 100);
+        circle.parentElement.parentElement.querySelector('.percentage').textContent = 
+            `${Math.round(percent)}%`;
+    });
+}
+
+// Simulate network activity
+function updateNetworkActivity() {
+    const graphs = document.querySelectorAll('.activity-graph');
+    graphs.forEach(graph => {
+        // Add network graph visualization here
+    });
+}
+
+// Add new terminal commands
+Object.assign(commands, {
+    network: 'Network Status:\nIncoming: 1.2 GB/s\nOutgoing: 824 MB/s\nLatency: 23ms',
+    security: 'Security Status:\nFirewall: Active\nThreats Detected: 2\nLast Scan: 13:42',
+    metrics: 'System Metrics:\nCPU Load: 75%\nMemory Usage: 62%\nDisk Space: 34%'
+});
+
+// Update metrics periodically
+setInterval(updateCircularProgress, 3000);
+setInterval(updateNetworkActivity, 1000);
