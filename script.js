@@ -147,6 +147,68 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Start boot sequence
     bootSequence();
+
+    // Matrix rain effect
+    function createMatrixRain() {
+        const art = document.querySelector('.ascii-art');
+        const rain = document.createElement('div');
+        rain.className = 'matrix-rain';
+        art.appendChild(rain);
+
+        const characters = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ';
+        const columnCount = Math.floor(window.innerWidth / 20);
+
+        for (let i = 0; i < columnCount; i++) {
+            const column = document.createElement('div');
+            column.className = 'rain-column';
+            column.style.left = `${i * 20}px`;
+            column.style.animationDuration = `${Math.random() * 2 + 1}s`;
+            column.textContent = Array.from({length: 20}, () => 
+                characters[Math.floor(Math.random() * characters.length)]
+            ).join('\n');
+            rain.appendChild(column);
+        }
+
+        // Remove rain effect after animation
+        setTimeout(() => {
+            rain.remove();
+        }, 4000);
+    }
+
+    // Generate effect for ASCII art
+    function generateEffect() {
+        const ascii = document.querySelector('.ascii-waifu');
+        const originalArt = ascii.innerHTML;
+        const chars = 'ｱｲｳｴｵｶｷｸｹｺ01';
+        
+        let interval = setInterval(() => {
+            let newArt = originalArt.split('\n').map(line => {
+                return line.split('').map(char => {
+                    if (char !== ' ' && Math.random() < 0.1) {
+                        return chars[Math.floor(Math.random() * chars.length)];
+                    }
+                    return char;
+                }).join('');
+            }).join('\n');
+            ascii.innerHTML = newArt;
+        }, 50);
+
+        // Stop the effect after animation
+        setTimeout(() => {
+            clearInterval(interval);
+            ascii.innerHTML = originalArt;
+        }, 4000);
+    }
+
+    // Start effects
+    createMatrixRain();
+    generateEffect();
+
+    // Start boot sequence after art generation
+    setTimeout(() => {
+        const bootTextElement = document.querySelector('.boot-text');
+        typeWriterEffect(bootTextElement, bootTexts);
+    }, 4000);
 });
 
 function typeWriterEffect(element, texts, index = 0, charIndex = 0) {
