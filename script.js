@@ -29,6 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add glitch effect to ASCII art
     addGlitchEffect();
+
+    // Create background effects after intro sequence
+    setTimeout(() => {
+        createBackgroundEffects();
+    }, 6000);
 });
 
 // Terminal initialization
@@ -228,3 +233,65 @@ function updateTime() {
         });
     }
 }
+
+// Add this function to create background effects
+function createBackgroundEffects() {
+    const shapes = [
+        { class: 'cube', size: 60 },
+        { class: 'pyramid', size: 80 },
+        { class: 'sphere', size: 40 }
+    ];
+    
+    const container = document.querySelector('.background-effects');
+    
+    // Create floating shapes
+    for (let i = 0; i < 15; i++) {
+        const shape = shapes[Math.floor(Math.random() * shapes.length)];
+        const element = document.createElement('div');
+        element.className = `floating-shape ${shape.class}`;
+        
+        // Random position
+        element.style.left = `${Math.random() * 100}%`;
+        element.style.top = `${Math.random() * 100}%`;
+        element.style.width = `${shape.size}px`;
+        element.style.height = `${shape.size}px`;
+        
+        // Random animation duration and delay
+        const duration = 15 + Math.random() * 15;
+        const delay = Math.random() * -20;
+        element.style.animation = `floatAnimation ${duration}s ${delay}s infinite linear`;
+        
+        container.appendChild(element);
+    }
+    
+    // Create glow effects
+    for (let i = 0; i < 5; i++) {
+        const glow = document.createElement('div');
+        glow.className = 'glow-effect';
+        
+        // Random position
+        glow.style.left = `${Math.random() * 100}%`;
+        glow.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation duration and delay
+        const duration = 3 + Math.random() * 2;
+        const delay = Math.random() * -5;
+        glow.style.animation = `pulseGlow ${duration}s ${delay}s infinite ease-in-out`;
+        
+        container.appendChild(glow);
+    }
+}
+
+// Add mouse movement effect for glow elements
+document.addEventListener('mousemove', (e) => {
+    const glows = document.querySelectorAll('.glow-effect');
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    
+    glows.forEach((glow, index) => {
+        const speed = 0.1 - (index * 0.02);
+        const x = mouseX * speed;
+        const y = mouseY * speed;
+        glow.style.transform = `translate(${x}px, ${y}px)`;
+    });
+});
