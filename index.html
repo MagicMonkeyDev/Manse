@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cyber Terminal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="controls">
+                <span class="control close"></span>
+                <span class="control minimize"></span>
+                <span class="control maximize"></span>
+            </div>
+            <div class="title">TERMINAL_ACCESS_v1.0</div>
+        </div>
+        <div class="terminal-content">
+            <div class="scan-line"></div>
+            <div id="output"></div>
+            <div class="input-line">
+                <span class="prompt">></span>
+                <input type="text" id="terminal-input" autofocus>
+            </div>
+        </div>
+    </div>
+    <div class="matrix-bg"></div>
+    <script src="script.js"></script>
+</body>
+</html> 

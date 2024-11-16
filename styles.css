@@ -1,0 +1,157 @@
+:root {
+    --terminal-green: #0f0;
+    --terminal-bg: rgba(0, 0, 0, 0.9);
+    --glow-color: #0f0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    font-family: 'Courier New', monospace;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.terminal {
+    width: 80vw;
+    height: 80vh;
+    background: var(--terminal-bg);
+    border: 1px solid var(--terminal-green);
+    border-radius: 5px;
+    box-shadow: 0 0 20px var(--glow-color);
+    position: relative;
+    z-index: 1;
+    animation: bootup 2s ease-in-out;
+}
+
+.terminal-header {
+    background: rgba(0, 255, 0, 0.1);
+    padding: 10px;
+    border-bottom: 1px solid var(--terminal-green);
+    display: flex;
+    align-items: center;
+}
+
+.controls {
+    display: flex;
+    gap: 5px;
+}
+
+.control {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid var(--terminal-green);
+}
+
+.close { background: #ff5f56; }
+.minimize { background: #ffbd2e; }
+.maximize { background: #27c93f; }
+
+.title {
+    color: var(--terminal-green);
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+.terminal-content {
+    padding: 20px;
+    height: calc(100% - 80px);
+    position: relative;
+}
+
+.scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(0, 255, 0, 0.1);
+    animation: scan 6s linear infinite;
+}
+
+.input-line {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.prompt {
+    color: var(--terminal-green);
+    margin-right: 10px;
+}
+
+#terminal-input {
+    background: transparent;
+    border: none;
+    color: var(--terminal-green);
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+}
+
+#output {
+    color: var(--terminal-green);
+    white-space: pre-wrap;
+}
+
+.matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    background: #000;
+}
+
+@keyframes bootup {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes scan {
+    0% {
+        top: 0;
+    }
+    100% {
+        top: 100%;
+    }
+}
+
+/* Add glitch effect */
+.terminal:hover {
+    animation: glitch 0.3s infinite;
+}
+
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        transform: translate(-2px, -2px);
+    }
+    60% {
+        transform: translate(2px, 2px);
+    }
+    80% {
+        transform: translate(2px, -2px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
