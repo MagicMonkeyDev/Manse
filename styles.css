@@ -434,3 +434,143 @@ canvas {
     width: 100%;
     height: 100%;
 }
+
+/* Add these new background styles */
+.cyber-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.vortex-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+}
+
+.vortex {
+    position: relative;
+    width: 60vmin;
+    height: 60vmin;
+    transform-style: preserve-3d;
+    animation: vortexSpin 20s linear infinite;
+}
+
+.vortex::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, 
+        rgba(255, 0, 255, 0.2) 0%,
+        rgba(0, 255, 255, 0.2) 50%,
+        transparent 70%);
+    border-radius: 50%;
+    box-shadow: 0 0 50px rgba(0, 255, 255, 0.5);
+    animation: pulseGlow 4s ease-in-out infinite;
+}
+
+.cyber-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 20s linear infinite;
+}
+
+.floating-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.floating-particles::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, #0ff 1px, transparent 1px),
+                      radial-gradient(circle, #f0f 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+    animation: particleFloat 10s linear infinite;
+}
+
+@keyframes vortexSpin {
+    0% {
+        transform: rotateZ(0deg) rotateY(0deg);
+    }
+    100% {
+        transform: rotateZ(360deg) rotateY(360deg);
+    }
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+@keyframes gridMove {
+    0% {
+        transform: translateZ(0) rotate(0deg);
+    }
+    100% {
+        transform: translateZ(100px) rotate(360deg);
+    }
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+    }
+}
+
+/* Update your existing cyber-container styles */
+.cyber-container {
+    position: relative;
+    z-index: 1;
+    /* rest of your existing styles */
+}
+
+/* Add some kawaii touches to your terminal and keyboard */
+.terminal-section, .keyboard-section {
+    border-radius: 15px;
+    border: 2px solid #ff69b4;
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.3),
+                inset 0 0 10px rgba(0, 255, 255, 0.2);
+}
+
+.key {
+    border-radius: 8px;
+    border-color: #ff69b4;
+    transition: all 0.3s ease;
+}
+
+.key:hover {
+    background: rgba(255, 105, 180, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+}
