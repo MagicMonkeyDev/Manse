@@ -2,27 +2,89 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cyber Terminal</title>
+    <title>Cyber Hub</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="terminal">
-        <div class="terminal-header">
-            <div class="controls">
-                <span class="control close"></span>
-                <span class="control minimize"></span>
-                <span class="control maximize"></span>
+    <div class="cyber-container">
+        <!-- Navigation -->
+        <nav class="cyber-nav">
+            <div class="logo">CYBER_HUB</div>
+            <div class="nav-links">
+                <a href="#" class="cyber-button">HOME</a>
+                <a href="#" class="cyber-button">PROJECTS</a>
+                <a href="#" class="cyber-button">CONTACT</a>
             </div>
-            <div class="title">TERMINAL_ACCESS_v1.0</div>
-        </div>
-        <div class="terminal-content">
-            <div class="scan-line"></div>
-            <div id="output"></div>
-            <div class="input-line">
-                <span class="prompt">></span>
-                <input type="text" id="terminal-input" autofocus>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="left-panel">
+                <div class="status-box">
+                    <h2>SYSTEM STATUS</h2>
+                    <div class="status-item">
+                        <span class="label">CPU LOAD</span>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">MEMORY</span>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">NETWORK</span>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+
+            <div class="terminal-container">
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="controls">
+                            <span class="control close"></span>
+                            <span class="control minimize"></span>
+                            <span class="control maximize"></span>
+                        </div>
+                        <div class="title">TERMINAL_ACCESS_v2.0</div>
+                    </div>
+                    <div class="terminal-content">
+                        <div class="scan-line"></div>
+                        <div id="output"></div>
+                        <div class="input-line">
+                            <span class="prompt">></span>
+                            <input type="text" id="terminal-input" autofocus>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="info-box">
+                    <h2>NETWORK INFO</h2>
+                    <div class="network-stats">
+                        <div class="stat">
+                            <span class="stat-label">PING</span>
+                            <span class="stat-value">23ms</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">UPTIME</span>
+                            <span class="stat-value">24:00:00</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">CONNECTIONS</span>
+                            <span class="stat-value">42</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
     <div class="matrix-bg"></div>
     <script src="script.js"></script>

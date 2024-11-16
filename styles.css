@@ -1,37 +1,126 @@
 :root {
-    --terminal-green: #0f0;
-    --terminal-bg: rgba(0, 0, 0, 0.9);
-    --glow-color: #0f0;
+    --primary-color: #0ff;
+    --secondary-color: #0f0;
+    --accent-color: #f0f;
+    --bg-color: #000;
+    --terminal-bg: rgba(0, 15, 20, 0.95);
+    --glow-color: #0ff;
 }
 
 body {
     margin: 0;
     padding: 0;
-    background: #000;
-    font-family: 'Courier New', monospace;
-    height: 100vh;
+    background: var(--bg-color);
+    font-family: 'Orbitron', sans-serif;
+    min-height: 100vh;
+    color: var(--primary-color);
+    overflow-x: hidden;
+}
+
+.cyber-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Navigation Styles */
+.cyber-nav {
+    background: rgba(0, 15, 20, 0.9);
+    padding: 1rem 2rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    border-bottom: 2px solid var(--primary-color);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-shadow: 0 0 10px var(--primary-color);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.cyber-button {
+    padding: 0.5rem 1rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    border: 1px solid var(--primary-color);
+    position: relative;
     overflow: hidden;
+    transition: all 0.3s;
+}
+
+.cyber-button:hover {
+    background: var(--primary-color);
+    color: var(--bg-color);
+    box-shadow: 0 0 20px var(--primary-color);
+}
+
+/* Main Content Layout */
+.main-content {
+    display: grid;
+    grid-template-columns: 250px 1fr 250px;
+    gap: 2rem;
+    padding: 2rem;
+    height: calc(100vh - 100px);
+}
+
+/* Panel Styles */
+.left-panel, .right-panel {
+    background: rgba(0, 15, 20, 0.8);
+    border: 1px solid var(--primary-color);
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+}
+
+.status-box, .info-box {
+    height: 100%;
+}
+
+.status-item {
+    margin: 1rem 0;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid var(--primary-color);
+    margin-top: 5px;
+}
+
+.progress {
+    height: 100%;
+    background: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+    animation: pulse 2s infinite;
+}
+
+/* Terminal Styles (Updated) */
+.terminal-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .terminal {
-    width: 80vw;
-    height: 80vh;
+    flex: 1;
     background: var(--terminal-bg);
-    border: 1px solid var(--terminal-green);
+    border: 1px solid var(--primary-color);
     border-radius: 5px;
-    box-shadow: 0 0 20px var(--glow-color);
-    position: relative;
-    z-index: 1;
-    animation: bootup 2s ease-in-out;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
 }
 
 .terminal-header {
-    background: rgba(0, 255, 0, 0.1);
+    background: rgba(0, 255, 255, 0.1);
     padding: 10px;
-    border-bottom: 1px solid var(--terminal-green);
+    border-bottom: 1px solid var(--primary-color);
     display: flex;
     align-items: center;
 }
@@ -153,5 +242,56 @@ body {
     }
     100% {
         transform: translate(0);
+    }
+}
+
+/* Network Stats */
+.network-stats {
+    margin-top: 1rem;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+    padding: 0.5rem;
+    border: 1px solid var(--primary-color);
+    background: rgba(0, 255, 255, 0.1);
+}
+
+.stat-value {
+    color: var(--secondary-color);
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+@keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .main-content {
+        grid-template-columns: 200px 1fr 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .left-panel, .right-panel {
+        display: none;
     }
 }
