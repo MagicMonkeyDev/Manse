@@ -127,6 +127,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Intro sequence text
+    const bootTexts = [
+        'INITIALIZING SYSTEMS...',
+        'BYPASSING SECURITY...',
+        'ACCESSING MAINFRAME...',
+        'ESTABLISHING CONNECTION...',
+        'ACCESS GRANTED'
+    ];
+
+    const bootTextElement = document.querySelector('.boot-text');
+    typeWriterEffect(bootTextElement, bootTexts);
+
+    // Add glitch effect to ASCII art
+    const asciiArt = document.querySelector('.ascii-skull');
+    setInterval(() => {
+        asciiArt.style.textShadow = `${Math.random() * 10}px ${Math.random() * 10}px ${Math.random() * 10}px #0f0`;
+    }, 100);
+
     // Start boot sequence
     bootSequence();
 });
+
+function typeWriterEffect(element, texts, index = 0, charIndex = 0) {
+    if (index >= texts.length) return;
+
+    if (charIndex < texts[index].length) {
+        element.textContent += texts[index].charAt(charIndex);
+        setTimeout(() => {
+            typeWriterEffect(element, texts, index, charIndex + 1);
+        }, 50);
+    } else {
+        setTimeout(() => {
+            element.textContent = '';
+            typeWriterEffect(element, texts, index + 1, 0);
+        }, 1000);
+    }
+}
