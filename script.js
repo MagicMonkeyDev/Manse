@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize terminal after intro sequence
+    // Initialize vortex after intro sequence
     setTimeout(() => {
         const introSequence = document.querySelector('.intro-sequence');
         const cyberContainer = document.querySelector('.cyber-container');
@@ -10,8 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show main container
         cyberContainer.classList.add('show-container');
         
-        // Initialize terminal
+        // Initialize terminal and vortex
         initializeTerminal();
+        initVortex();
     }, 6000);
 
     // Boot sequence texts
@@ -295,3 +296,97 @@ document.addEventListener('mousemove', (e) => {
         glow.style.transform = `translate(${x}px, ${y}px)`;
     });
 });
+
+// Add this vortex animation code to your script.js
+// Make sure this comes after your existing intro sequence code
+
+function initVortex() {
+    const canvas = document.querySelector("#canvas");
+    const ctx = canvas.getContext("2d");
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    let stars = [];
+    let centerX = width / 2;
+    let centerY = height / 2;
+
+    const starCount = 1000; // Adjust for more or fewer stars
+    const starBaseSize = 1;
+    const starMaxSize = 2;
+    const speed = 0.2;
+
+    class Star {
+        constructor() {
+            this.init();
+        }
+    
+        init() {
+            this.x = Math.random() * width - width / 2;
+            this.y = Math.random() * height - height / 2;
+            this.z = Math.random() * 2000;
+            this.size = starBaseSize;
+            this.opacity = 0;
+        }
+    
+        update() {
+            this.z -= speed * 10;
+            
+            if (this.z <= 0) {
+                this.init();
+                this.z = 2000;
+            }
+            
+            this.size = starBaseSize + (starMaxSize * (1 - this.z / 2000));
+            
+            // Calculate position relative to center
+            let dx = this.x / (this.z * 0.001);
+            let dy = this.y / (this.z * 0.001);
+            
+            // Rotate points
+            let rot = performance.now() * 0.0001;
+            let nx = dx * Math.cos(rot) - dy * Math.sin(rot);
+            let ny = dx * Math.sin(rot) + dy * Math.cos(rot);
+            
+            this.screenX = centerX + nx;
+            this.screenY = centerY + ny;
+            
+            // Fade stars in/out based on position
+            this.opacity = Math.min(1, Math.max(0, 1 - this.z / 2000));
+        }
+    
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.screenX, this.screenY, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(0, 255, 255, ${this.opacity})`;
+            ctx.fill();
+        }
+    }
+
+    // Initialize stars
+    for (let i = 0; i < starCount; i++) {
+        stars.push(new Star());
+    }
+
+    function animate() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+        ctx.fillRect(0, 0, width, height);
+        
+        stars.forEach(star => {
+            star.update();
+            star.draw();
+        });
+        
+        requestAnimationFrame(animate);
+    }
+
+    // Handle window resize
+    window.addEventListener("resize", () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        centerX = width / 2;
+        centerY = height / 2;
+    });
+
+    animate();
+}
