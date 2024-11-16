@@ -1,116 +1,132 @@
-// Matrix rain effect
-const canvas = document.createElement('canvas');
-const ctx = canvas.getContext('2d');
-document.querySelector('.matrix-bg').appendChild(canvas);
+document.addEventListener('DOMContentLoaded', () => {
+    const terminal = document.getElementById('terminal-input');
+    const output = document.getElementById('output');
+    const keyboard = document.querySelector('.keyboard');
+    let capsLockOn = false;
+    let shiftOn = false;
 
-// Set canvas size
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-// Matrix rain characters
-const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
-const fontSize = 14;
-const columns = canvas.width / fontSize;
-const drops = Array(Math.floor(columns)).fill(1);
-
-function drawMatrix() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    ctx.fillStyle = '#0f0';
-    ctx.font = `${fontSize}px monospace`;
-    
-    for (let i = 0; i < drops.length; i++) {
-        const text = chars[Math.floor(Math.random() * chars.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
-        }
-        drops[i]++;
-    }
-}
-
-// Terminal functionality
-const input = document.getElementById('terminal-input');
-const output = document.getElementById('output');
-const commands = {
-    help: 'Available commands: help, clear, about, matrix',
-    about: 'Cyber Terminal v1.0 - Created by [Your Name]',
-    clear: () => output.innerHTML = '',
-    matrix: 'Accessing the Matrix...\nConnection established.\nDecoding reality...',
-    stats: 'System Statistics:\nCPU: Online\nMemory: 32GB\nNetwork: Connected',
-    scan: 'Scanning network...\nFound 42 active nodes\nSecurity level: High',
-    system: 'System Information:\nOS: CyberOS v3.1\nKernel: 4.19.0-cyber\nUptime: 24:00:00'
-};
-
-input.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        const command = input.value.toLowerCase().trim();
-        const response = typeof commands[command] === 'function' 
-            ? commands[command]() 
-            : commands[command] || `Command not found: ${command}`;
-        
-        output.innerHTML += `\n> ${input.value}`;
-        output.innerHTML += `\n> ${response}`;
-        input.value = '';
-    }
-}); 
-
-// Update system stats periodically
-function updateSystemStats() {
-    const stats = {
-        cpu: Math.random() * 100,
-        memory: Math.random() * 100,
-        network: Math.random() * 100
+    // Terminal commands
+    const commands = {
+        help: 'Available commands: help, clear, system, network, security, about',
+        clear: () => output.innerHTML = '',
+        about: 'CyberHub Command Center v1.0\nSecure Terminal Access',
+        system: 'System Status:\nCPU: Online\nMemory: 32GB\nStorage: 1TB\nOS: CyberOS v3.1',
+        network: 'Network Status:\nIncoming: 1.2 GB/s\nOutgoing: 824 MB/s\nLatency: 23ms',
+        security: 'Security Status:\nFirewall: Active\nThreats Detected: 2\nLast Scan: 13:42'
     };
 
-    document.querySelectorAll('.progress').forEach((bar, index) => {
-        const values = Object.values(stats);
-        bar.style.width = `${values[index]}%`;
+    // Boot sequence
+    function bootSequence() {
+        const messages = [
+            'Initializing CyberHub Command Center...',
+            'Loading security protocols...',
+            'Establishing secure connection...',
+            'Access granted...',
+            'Type "help" for available commands.'
+        ];
+
+        let i = 0;
+        const interval = setInterval(() => {
+            output.innerHTML += messages[i] + '\n';
+            i++;
+            if (i >= messages.length) clearInterval(interval);
+        }, 500);
+    }
+
+    // Handle terminal input
+    terminal.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            const command = this.value.toLowerCase().trim();
+            const response = typeof commands[command] === 'function' 
+                ? commands[command]() 
+                : commands[command] || `Command not found: ${command}`;
+            
+            output.innerHTML += `\nroot@cyber:~$ ${this.value}\n${response || ''}\n`;
+            this.value = '';
+            output.scrollTop = output.scrollHeight;
+        }
     });
-}
 
-// Update network stats
-function updateNetworkStats() {
-    const ping = Math.floor(Math.random() * 100);
-    document.querySelector('.stat-value').textContent = `${ping}ms`;
-}
+    // Handle virtual keyboard clicks
+    keyboard.addEventListener('click', (e) => {
+        const key = e.target.closest('.key');
+        if (!key) return;
 
-// Run updates
-setInterval(updateSystemStats, 2000);
-setInterval(updateNetworkStats, 1000);
+        const keyValue = key.dataset.key;
+        
+        // Handle special keys
+        switch(keyValue) {
+            case 'CapsLock':
+                capsLockOn = !capsLockOn;
+                key.classList.toggle('active');
+                return;
+            case 'Shift':
+                shiftOn = !shiftOn;
+                document.querySelectorAll('.key[data-key="Shift"]')
+                    .forEach(k => k.classList.toggle('active'));
+                return;
+            case 'Enter':
+                terminal.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter' }));
+                return;
+            case 'Backspace':
+                terminal.value = terminal.value.slice(0, -1);
+                return;
+            case 'Tab':
+                e.preventDefault();
+                terminal.value += '    ';
+                return;
+        }
 
-// Update circular progress bars
-function updateCircularProgress() {
-    const circles = document.querySelectorAll('.circular-progress .progress');
-    circles.forEach(circle => {
-        const percent = Math.random() * 100;
-        circle.style.setProperty('--percent', percent / 100);
-        circle.parentElement.parentElement.querySelector('.percentage').textContent = 
-            `${Math.round(percent)}%`;
+        // Handle regular keys
+        let char = keyValue;
+        if (capsLockOn || shiftOn) {
+            char = char.toUpperCase();
+        } else {
+            char = char.toLowerCase();
+        }
+
+        // Handle shift + number keys for symbols
+        if (shiftOn && '1234567890-=[]\\;\',./`'.includes(keyValue)) {
+            const symbolMap = {
+                '1': '!', '2': '@', '3': '#', '4': '$', '5': '%',
+                '6': '^', '7': '&', '8': '*', '9': '(', '0': ')',
+                '-': '_', '=': '+', '[': '{', ']': '}', '\\': '|',
+                ';': ':', '\'': '"', ',': '<', '.': '>', '/': '?',
+                '`': '~'
+            };
+            char = symbolMap[keyValue] || char;
+        }
+
+        terminal.value += char;
+        terminal.focus();
+
+        // Visual feedback
+        key.classList.add('active');
+        setTimeout(() => key.classList.remove('active'), 100);
+
+        // Reset shift if it's on
+        if (shiftOn && keyValue !== 'Shift') {
+            shiftOn = false;
+            document.querySelectorAll('.key[data-key="Shift"]')
+                .forEach(k => k.classList.remove('active'));
+        }
     });
-}
 
-// Simulate network activity
-function updateNetworkActivity() {
-    const graphs = document.querySelectorAll('.activity-graph');
-    graphs.forEach(graph => {
-        // Add network graph visualization here
+    // Handle physical keyboard input for visual feedback
+    document.addEventListener('keydown', (e) => {
+        const key = document.querySelector(`.key[data-key="${e.key}"]`);
+        if (key) {
+            key.classList.add('active');
+        }
     });
-}
 
-// Add new terminal commands
-Object.assign(commands, {
-    network: 'Network Status:\nIncoming: 1.2 GB/s\nOutgoing: 824 MB/s\nLatency: 23ms',
-    security: 'Security Status:\nFirewall: Active\nThreats Detected: 2\nLast Scan: 13:42',
-    metrics: 'System Metrics:\nCPU Load: 75%\nMemory Usage: 62%\nDisk Space: 34%'
+    document.addEventListener('keyup', (e) => {
+        const key = document.querySelector(`.key[data-key="${e.key}"]`);
+        if (key) {
+            key.classList.remove('active');
+        }
+    });
+
+    // Start boot sequence
+    bootSequence();
 });
-
-// Update metrics periodically
-setInterval(updateCircularProgress, 3000);
-setInterval(updateNetworkActivity, 1000);

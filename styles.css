@@ -140,10 +140,6 @@ body {
     gap: 2rem;
 }
 
-.terminal-section {
-    grid-column: 1 / -1;
-}
-
 section {
     background: var(--card-bg);
     border-radius: 12px;
@@ -158,7 +154,11 @@ section {
     margin-bottom: 1rem;
 }
 
-/* Terminal Styles */
+/* Terminal Section */
+.terminal-section {
+    grid-column: 1 / -1;
+}
+
 .terminal {
     background: var(--terminal-bg);
     padding: 1rem;
@@ -188,60 +188,67 @@ section {
     outline: none;
 }
 
-/* Metrics Section */
-.metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-}
-
-.metric-card {
-    text-align: center;
+/* Keyboard Section */
+.keyboard-section {
+    grid-column: 1 / -1;
+    background: var(--card-bg);
+    border-radius: 12px;
     padding: 1.5rem;
-    background: rgba(0, 255, 255, 0.05);
+}
+
+.keyboard {
+    background: var(--terminal-bg);
+    padding: 1rem;
     border-radius: 8px;
+    user-select: none;
 }
 
-.circular-progress {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    margin: 1rem auto;
+.keyboard-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
-.circular-progress svg {
-    width: 120px;
-    height: 120px;
-    transform: rotate(-90deg);
-}
-
-.circular-progress circle {
-    fill: none;
-    stroke-width: 8;
-    stroke-linecap: round;
-}
-
-.circular-progress .bg {
-    stroke: rgba(0, 255, 255, 0.1);
-}
-
-.circular-progress .progress {
-    stroke: var(--primary-color);
-    stroke-dasharray: 339.292;
-    stroke-dashoffset: calc(339.292 * (1 - var(--percent, 0)));
-    transition: stroke-dashoffset 1s ease;
-}
-
-.percentage {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.5rem;
+.key {
+    background: var(--card-bg);
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
     color: var(--primary-color);
+    min-width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.8rem;
+    padding: 0 0.5rem;
+    text-align: center;
+    line-height: 1.2;
+    transition: all 0.2s ease;
+    position: relative;
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
 }
 
-/* Network Activity */
+.key:hover {
+    background: rgba(0, 255, 255, 0.1);
+}
+
+.key:active, .key.active {
+    background: var(--primary-color);
+    color: var(--bg-color);
+    transform: translateY(2px);
+}
+
+.key.delete, .key.tab, .key.caps, .key.shift, .key.enter {
+    min-width: 70px;
+}
+
+.key.space {
+    min-width: 300px;
+}
+
+/* Network Section */
 .network-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -285,4 +292,46 @@ section {
 
 .alert-severity.low {
     background: var(--warning-color);
+}
+
+/* Animations */
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px var(--primary-color);
+    }
+    100% {
+        box-shadow: 0 0 20px var(--primary-color);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .key {
+        min-width: 35px;
+        height: 35px;
+        font-size: 0.7rem;
+    }
+    
+    .key.space {
+        min-width: 200px;
+    }
+    
+    .key.delete, .key.tab, .key.caps, .key.shift, .key.enter {
+        min-width: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .cyber-container {
+        flex-direction: column;
+    }
+    
+    .side-nav {
+        width: 100%;
+        padding: 1rem;
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
 }
